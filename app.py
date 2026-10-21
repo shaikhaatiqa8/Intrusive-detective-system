@@ -10,7 +10,7 @@ from google import genai # Official Google GenAI SDK
 # ==========================================
 st.set_page_config(
     page_title="GuardAI - Web Intrusion Detector",
-    page_icon="🛡️",
+    page_icon=" ",
     layout="wide"
 )
 
@@ -26,7 +26,7 @@ if not api_key:
 # ==========================================
 # STEP 3: CREATING THE APP HEADER
 # ==========================================
-st.title("🛡️ GuardAI: Real-Time Web Intrusion Detection")
+st.title(" GuardAI: Real-Time Web Intrusion Detection")
 st.markdown("A Grammarly-styled security copilot that scans web inputs and payloads for malicious intent using semantic LLM analysis.")
 
 # ==========================================
@@ -35,7 +35,7 @@ st.markdown("A Grammarly-styled security copilot that scans web inputs and paylo
 col1, col2 = st.columns([1.5, 1])
 
 with col1:
-    st.subheader("📥 Live Traffic / Payload Inspector")
+    st.subheader(" Live Traffic / Payload Inspector")
     st.markdown("Paste an incoming HTTP request body, URL query string, or user form input to test for intrusions:")
     
     sample_payload = st.selectbox(
@@ -54,7 +54,7 @@ with col1:
     analyze_btn = st.button("🔍 Analyze Payload", type="primary")
 
 with col2:
-    st.subheader("💡 AI Security Suggestions")
+    st.subheader(" AI Security Suggestions")
     
     if analyze_btn:
         if not api_key:
@@ -108,12 +108,12 @@ with col2:
                     result = json.loads(raw_text.strip())
                     
                     if result["status"] == "MALICIOUS":
-                        st.error(f"🚨 Threat Detected! ({result['risk_score']}/100 Risk)")
+                        st.error(f" Threat Detected! ({result['risk_score']}/100 Risk)")
                         st.markdown(f"**Attack Vector:** `{result['attack_type']}`")
                         st.info(f"**Why it's flagged:** {result['explanation']}")
                         st.warning(f"**Recommended Action:** {result['remediation']}")
                     else:
-                        st.success("✅ Clean Traffic / Safe Payload")
+                        st.success(" Clean Traffic / Safe Payload")
                         st.markdown(f"**Analysis:** {result['explanation']}")
                         
                 except Exception as e:
