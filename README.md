@@ -1,33 +1,62 @@
-# 🛡️ GuardAI: Real-Time Web Intrusion Detection
+# 🛡️ GuardAI — Web Intrusion Detection System
 
-## 1. Project Overview and Objectives
-**GuardAI** is a Grammarly-styled security copilot designed to inspect HTTP traffic payloads, URL query strings, and form inputs in real time. Traditional signature-based Web Application Firewalls (WAFs) often fail against zero-day exploits, obfuscated attacks, and nuanced semantic injection. GuardAI leverages Google's `gemini-2.5-flash` model to analyze the behavioral intent behind user inputs, delivering instant threat assessments, risk scores, clear explanations, and precise remediation advice.
-
-### Key Objectives:
-* Bridge the gap between static WAF signature checks and semantic AI reasoning.
-* Provide an intuitive, split-screen UI for security engineers and developers to test payloads instantly.
-* Deliver actionable remediation steps rather than just blocking traffic.
+**GuardAI** is a smart security tool that acts like an AI-powered security guard for web applications. It scans web requests and log files to catch hackers, decodes hidden tricks (like base64 or URL encoding), and explains security risks in plain, easy-to-understand language.
 
 ---
 
-## 2. Features and Technologies Used
-### Features:
-* **Pre-loaded Attack Vectors:** Quick-test dropdown containing common payloads (SQLi, XSS, Path Traversal, and Clean Traffic).
-* **Semantic Analysis:** Goes beyond regex matching to understand the underlying context of strings.
-* **Grammarly-Style Feedback Cards:** Color-coded threat alerts (`st.error`, `st.success`, `st.warning`) providing risk ratings, explanations, and fixes.
-* **Secure Key Handling:** Built-in support for Streamlit secrets and manual fallback inputs.
+## ✨ What Can It Do?
 
-### Technologies & Libraries:
-* **Python 3.10+**
-* **Streamlit:** For rapid, responsive web interface development.
-* **Google GenAI SDK (`google-genai`):** Interfacing with `gemini-2.5-flash`.
-* **JSON:** For structured communication between the LLM and UI parsing engine.
+- **Hybrid Detection:** Uses fast pattern-matching for instant checks and Google's Gemini AI for deep, intelligent threat analysis.
+- **Unlocks Hidden Payloads:** Automatically decodes tricks attackers use to hide malicious code (URL encoding, HTML entities, and Base64).
+- **Log File Scanner:** Upload full server access logs (`.log`, `.txt`, `.csv`) to spot malicious traffic instantly.
+- **Plain-Language Explanations:** Breaks down complex cyber attacks so anyone can understand what went wrong.
+- **Interactive Code Fixes:** Shows side-by-side examples of vulnerable code vs. secure code fixes.
+- **Excel-Safe Exports:** Automatically sanitizes downloaded CSV reports to protect against spreadsheet formula injection.
 
 ---
 
-## 3. Installation and Setup Instructions
-Follow these steps to run GuardAI locally:
+## 🚀 Quick Setup Guide
 
-1. **Clone the Repository:**
-   ```bash
- 
+### 1. What You Need
+- **Python 3.9+** installed on your computer.
+- A free **Google Gemini API Key** (Get yours from [Google AI Studio](https://aistudio.google.com/app/apikey)).
+
+### 2. Installation Steps
+
+Open your terminal or command prompt and run:
+
+```bash
+# Clone the repository
+git clone [https://github.com/your-username/GuardAI.git](https://github.com/your-username/GuardAI.git)
+cd GuardAI
+
+# Create and activate a virtual environment
+python -m venv venv
+# On Windows:
+venv\Scripts\activate
+# On Mac/Linux:
+source venv/bin/activate
+
+# Install the required packages
+pip install streamlit google-genai pandas
+
+
+
+3.RUN THE APP
+streamlit run app.py
+Open your web browser and go to http://localhost:8501. Paste your Gemini API key in the sidebar, and you're ready to go!
+
+
+
+Try These Sample AttacksCopy and paste any of these examples into the Scanner tab to test how GuardAI catches them:
+Attack TypeTest PayloadWhat Happens  SQL Injection' OR '1'='1' --Tries to bypass database passwords.
+Cross-Site Scripting (XSS)<script>alert('Hacked')</script>Tries to run malicious scripts in the browser.
+Path Traversal../../../../etc/passwdTries to steal private server files.
+Safe InputHello, update my email to user@example.comClean, normal user traffic.
+
+PROJECT STRUCTURE
+GuardAI/
+├── app.py             # Main application code
+└── README.md          # Project documentation
+
+LISCENSE : Distributed under MIT.
