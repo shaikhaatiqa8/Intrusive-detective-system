@@ -119,9 +119,9 @@ with col2:
               ' "remediation" (string: how to fix or prevent it).'
           )
 
-          # Request generation with enforced JSON mime type
+          # Updated model parameter to gemini-3.8-flash
           response = client.models.generate_content(
-              model="gemini-2.5-flash",
+              model="gemini-3.8-flash",
               contents=f"Payload to analyze: {payload_text}",
               config={
                   "system_instruction": system_instruction,
@@ -143,20 +143,32 @@ with col2:
           try:
             result = json.loads(raw_text.strip())
           except json.JSONDecodeError:
-            # Fallback structure if model output is imperfect text
             result = {
-                "status": "MALICIOUS" if any(kw in payload_text.lower() for kw in ["script", "or", "..", "exec"]) else "SAFE",
+                "status": (
+                    "MALICIOUS"
+                    if any(
+                        kw in payload_text.lower()
+                        for kw in ["script", "or", "..", "exec"]
+                    )
+                    else "SAFE"
+                ),
                 "risk_score": 70,
                 "threat_type": "Suspicious Activity Pattern",
                 "explanation": raw_text,
-                "remediation": "Apply strict input sanitization and parameterized queries.",
+                "remediation": (
+                    "Apply strict input sanitization and parameterized"
+                    " queries."
+                ),
             }
 
           status = result.get("status", "SAFE")
           risk_score = result.get("risk_score", 0)
 
           if status == "MALICIOUS":
-            st.error(f"Threat Detected: {result.get('threat_type', 'Security Violation')}")
+            st.error(
+                f"Threat Detected: {result.get('threat_type', 'Security"
+                " Violation')}"
+            )
           else:
             st.success("Traffic is Clean / Safe")
 
@@ -166,7 +178,10 @@ with col2:
           st.info(result.get("explanation", "No explanation generated."))
 
           st.markdown("### Remediation Guidance")
-          st.code(result.get("remediation", "Review secure coding standards."), language="text")
+          st.code(
+              result.get("remediation", "Review secure coding standards."),
+              language="text",
+          )
 
       except Exception as e:
         error_msg = str(e)
