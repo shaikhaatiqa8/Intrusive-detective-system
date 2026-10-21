@@ -119,9 +119,9 @@ with col2:
               ' "remediation" (string: how to fix or prevent it).'
           )
 
-          # Updated model parameter to gemini-3.8-flash
+          # Using the stable gemini-2.0-flash model
           response = client.models.generate_content(
-              model="gemini-3.8-flash",
+              model="gemini-2.0-flash",
               contents=f"Payload to analyze: {payload_text}",
               config={
                   "system_instruction": system_instruction,
@@ -163,12 +163,10 @@ with col2:
 
           status = result.get("status", "SAFE")
           risk_score = result.get("risk_score", 0)
+          threat_name = result.get("threat_type", "Security Violation")
 
           if status == "MALICIOUS":
-            st.error(
-                f"Threat Detected: {result.get('threat_type', 'Security"
-                " Violation')}"
-            )
+            st.error(f"Threat Detected: {threat_name}")
           else:
             st.success("Traffic is Clean / Safe")
 
